@@ -12,8 +12,10 @@ header { margin-bottom: 28px; }
 h1 { margin: 0 0 6px; font-size: 2rem; } h2 { margin-top: 34px; }
 .subtitle,.muted,.foot { opacity: .68; }
 .portfolio { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; }
-.metric,.project-card { border:1px solid color-mix(in srgb, CanvasText 18%, transparent); border-radius:14px; padding:16px; background:color-mix(in srgb, Canvas 94%, CanvasText 6%); }
+.metric,.project-card,.input-card { border:1px solid color-mix(in srgb, CanvasText 18%, transparent); border-radius:14px; padding:16px; background:color-mix(in srgb, Canvas 94%, CanvasText 6%); }
 .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:14px; }
+.input-status { font-size:.72rem; font-weight:700; padding:4px 7px; border-radius:999px; border:1px solid currentColor; }
+.input-status.pending { font-weight:800; } .input-card a { color:inherit; text-decoration-thickness:1px; text-underline-offset:3px; }
 .card-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
 .card-head h3 { margin:0; } .state { font-size:.78rem; font-weight:700; padding:5px 8px; border-radius:999px; border:1px solid currentColor; }
 dl { display:grid; grid-template-columns:110px 1fr; gap:8px 12px; margin:14px 0 0; } dt { opacity:.64; } dd { margin:0; }
@@ -46,7 +48,7 @@ body.ws-locked > main { display:none !important; }
 <section class="portfolio">
   <div class="metric"><strong>Main focus</strong><p>No portfolio focus set</p></div>
   <div class="metric"><strong>Milestone</strong><p>No portfolio milestone set</p></div>
-  <div class="metric"><strong>Portfolio</strong><p>1 registered · 1 need attention</p></div>
+  <div class="metric"><strong>Portfolio</strong><p>1 registered · 1 need attention · 2 pending inputs</p></div>
 </section>
 <h2>Human attention</h2><section class="cards">
     <article class="project-card available">
@@ -59,6 +61,23 @@ body.ws-locked > main { display:none !important; }
         <dt>Review debt</dt><dd>1</dd>
         <dt>Freshness</dt><dd>2026-09-11T12:09:56.109826+02:00</dd>
       </dl>
+    </article></section>
+<h2>Inputs</h2><section class="cards">
+    <article class="input-card">
+      <div class="card-head"><h3><a href="https://github.com/omiata/OSPvector/blob/main/input/Pendiente_auditoria_extrapolacion_selector.md" target="_blank" rel="noopener noreferrer">Pendiente — decisiones para cerrar auditoría de extrapolación y selector</a></h3><span class="input-status pending">PENDING</span></div>
+      <p class="muted"><a href="https://github.com/omiata/OSPvector/blob/main/input/Input.md" target="_blank" rel="noopener noreferrer">OSPVector input</a></p>
+    </article>
+    <article class="input-card">
+      <div class="card-head"><h3><a href="https://github.com/omiata/OSPvector/blob/main/input/Input.md" target="_blank" rel="noopener noreferrer">Pendiente — instalar las reglas globales de ingeniería para Codex/Codexless.</a></h3><span class="input-status pending">PENDING</span></div>
+      <p class="muted"><a href="https://github.com/omiata/OSPvector/blob/main/input/Input.md" target="_blank" rel="noopener noreferrer">OSPVector input</a></p>
+    </article>
+    <article class="input-card">
+      <div class="card-head"><h3><a href="https://github.com/omiata/OSPvector/blob/main/input/Conversation_2026-09-01_FormulaNam.md" target="_blank" rel="noopener noreferrer">Conversación 2026-09-01 — FormulaNam y estrategia de apps de nicho</a></h3><span class="input-status reference">REFERENCE</span></div>
+      <p class="muted"><a href="https://github.com/omiata/OSPvector/blob/main/input/Input.md" target="_blank" rel="noopener noreferrer">OSPVector input</a></p>
+    </article>
+    <article class="input-card">
+      <div class="card-head"><h3><a href="https://github.com/omiata/OSPvector/blob/main/input/Recursos_revision_validacion_ideas.md" target="_blank" rel="noopener noreferrer">Recursos cercanos para revisión y validación de ideas</a></h3><span class="input-status reference">REFERENCE</span></div>
+      <p class="muted"><a href="https://github.com/omiata/OSPvector/blob/main/input/Input.md" target="_blank" rel="noopener noreferrer">OSPVector input</a></p>
     </article></section>
 <h2>All projects</h2><section class="cards">
     <article class="project-card available">
