@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Workstate — guía del propietario</title>
+<style>
+:root { color-scheme: light dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
+* { box-sizing:border-box; } body { margin:0; color:CanvasText; background:radial-gradient(circle at 10% 0%,color-mix(in srgb,#72a5ff 16%,Canvas),Canvas 40%); line-height:1.58; }
+main { max-width:1050px; margin:auto; padding:42px 20px 80px; } header { padding-bottom:30px; border-bottom:1px solid color-mix(in srgb,CanvasText 14%,transparent); }
+.eyebrow { text-transform:uppercase; letter-spacing:.12em; font-size:.72rem; font-weight:800; opacity:.55; } h1 { margin:.18em 0; max-width:850px; font-size:clamp(2.4rem,7vw,5rem); line-height:.96; letter-spacing:-.065em; }
+.lead { margin:18px 0 0; max-width:790px; font-size:1.08rem; opacity:.68; } nav { display:flex; gap:8px; flex-wrap:wrap; margin-top:24px; } nav a { color:inherit; text-decoration:none; border:1px solid color-mix(in srgb,CanvasText 14%,transparent); background:color-mix(in srgb,Canvas 94%,CanvasText 6%); border-radius:999px; padding:7px 11px; font-size:.8rem; }
+section { margin-top:22px; padding:24px; border:1px solid color-mix(in srgb,CanvasText 13%,transparent); border-radius:20px; background:color-mix(in srgb,Canvas 94%,CanvasText 6%); box-shadow:0 14px 40px color-mix(in srgb,CanvasText 6%,transparent); } h2 { margin:0 0 14px; font-size:clamp(1.35rem,3vw,1.9rem); letter-spacing:-.035em; } p { margin:10px 0; } ul,ol { margin:12px 0 2px; padding-left:1.35rem; } li { margin:7px 0; }
+code { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; font-size:.9em; background:color-mix(in srgb,CanvasText 8%,transparent); padding:2px 5px; border-radius:6px; } pre { overflow:auto; padding:18px; border-radius:14px; background:color-mix(in srgb,CanvasText 8%,Canvas); } pre code { padding:0; background:none; } strong { font-weight:780; }
+footer { margin-top:34px; padding-top:18px; border-top:1px solid color-mix(in srgb,CanvasText 14%,transparent); opacity:.58; font-size:.82rem; }
+@media(max-width:620px) { main { padding-top:26px; } section { padding:18px; } nav { flex-wrap:nowrap; overflow:auto; padding-bottom:5px; } nav a { flex:none; } }
+</style><style>
+body.ws-locked > main { display:none !important; }
+#ws-password-gate { position:fixed; inset:0; z-index:9999; display:grid; place-items:center; padding:20px; background:#071018; color:#dce8f2; font-family:Inter,ui-sans-serif,system-ui,sans-serif; }
+#ws-password-gate form { width:min(360px,100%); display:grid; gap:12px; padding:22px; border:1px solid #2b4658; border-radius:14px; background:#0d1923; box-shadow:0 18px 60px rgba(0,0,0,.35); }
+#ws-password-gate h1 { margin:0; font-size:1.45rem; }
+#ws-password-gate p { margin:0; color:#9bb0be; line-height:1.45; }
+#ws-password-gate input { width:100%; box-sizing:border-box; padding:11px 12px; border-radius:8px; border:1px solid #345368; background:#08141d; color:#eef7fb; font:inherit; }
+#ws-password-gate button { padding:10px 12px; border-radius:8px; border:1px solid #3b8d82; background:#1f756d; color:white; font:inherit; cursor:pointer; }
+#ws-password-error { min-height:1.2em; color:#ff9f96 !important; font-size:.9rem; }
+</style></head><body class="ws-locked">
+<div id="ws-password-gate">
+  <form id="ws-password-form">
+    <h1>Workstate Dashboard</h1>
+    <p>Introduce la contraseÃ±a para abrir el dashboard completo.</p>
+    <input id="ws-password" type="password" autocomplete="current-password" autofocus aria-label="Password">
+    <button type="submit">Entrar</button>
+    <p id="ws-password-error" role="alert"></p>
+  </form>
+</div><main><header><div class="eyebrow">Workstate · Owner guide</div><h1>Workstate — guía del propietario</h1><p class="lead">Cómo funciona el harness global, qué decide la IA, qué decisiones vuelven a ti y cómo se integran tus proyectos sin crear un segundo sistema de gestión.</p><nav><a href="#que-controla">Qué controla</a><a href="#las-capas">Las capas</a><a href="#que-haces-tu">Qué haces tú</a><a href="#que-debe-hacer-la-ia-automaticamente">Qué debe hacer la IA automáticamente</a><a href="#proyectos-con-harness-propio">Proyectos con harness propio</a><a href="#donde-mirar">Dónde mirar</a><a href="#que-significa-adoptado">Qué significa “adoptado”</a><a href="#como-saber-si-funciona-de-verdad">Cómo saber si funciona de verdad</a></nav></header><p>Workstate es el <strong>harness global</strong> derivado del operating model aprobado en R001/Astra. El dashboard no es el sistema: es únicamente la vista regenerable de lo que el harness sabe de tus proyectos.</p>
+<section id="que-controla"><h2>Qué controla</h2>
+<p>El harness pone una capa común sobre ChatGPT/Codexless, Codex, Claude Code y otros agentes para que trabajen con las mismas reglas sobre:</p>
+<ul>
+<li>qué puede resolver la IA de forma autónoma y qué decisión tiene que volver a ti;</li>
+<li>cómo distinguir explorar/capturar, definir, ejecutar y validar/cerrar;</li>
+<li>qué significa realmente una autorización en conversación;</li>
+<li>cómo separar hechos, hipótesis, supuestos y permisos;</li>
+<li>cuándo un resultado está de verdad terminado;</li>
+<li>qué decisiones, obligaciones, evidencia y siguiente acción deben sobrevivir al chat;</li>
+<li>cómo mantener una sola fuente de verdad por dato;</li>
+<li>cómo ver foco, atención humana, trabajo activo, bloqueos, review debt e inputs en varios proyectos.</li>
+</ul>
+<p>Las reglas operativas están en <code>docs/OPERATING_POLICY.md</code>. El procedimiento de arranque que debe cargar un agente está en <code>docs/BOOTSTRAP.md</code>. La especificación R001/Astra sigue siendo el diseño normativo completo.</p>
+</section>
+<section id="las-capas"><h2>Las capas</h2>
+<pre><code>R001 / Astra — diseño normativo aprobado
+        ↓
+Workstate policy + bootstrap — harness global
+        ↓
+reglas y escritor canónico de cada proyecto
+        ↓
+adaptador de lectura Workstate
+        ↓
+dashboard global regenerable</code></pre>
+<p>La capa global <strong>no sustituye</strong> un sistema local que ya funciona. Lo especializa y lo hace visible en portfolio sin crear otra autoridad.</p>
+</section>
+<section id="que-haces-tu"><h2>Qué haces tú</h2>
+<p>Normalmente sólo tienes que:</p>
+<ol>
+<li>decir qué quieres conseguir o explorar;</li>
+<li>resolver decisiones materiales de producto, ingeniería, alcance, publicación o efectos reales cuando aparezcan;</li>
+<li>revisar UI/UX, resultados visuales/físicos o aceptación donde haga falta tu juicio;</li>
+<li>elegir o cambiar prioridades/foco cuando quieras.</li>
+</ol>
+<p>No deberías tener que mantener manualmente archivos Workstate, estados ni el dashboard.</p>
+</section>
+<section id="que-debe-hacer-la-ia-automaticamente"><h2>Qué debe hacer la IA automáticamente</h2>
+<ul>
+<li>recuperar proyecto, estado y reglas antes de trabajo sustantivo;</li>
+<li>interpretar <code>vale</code>/<code>me gusta</code> como aceptación conversacional, no como permiso nuevo;</li>
+<li>interpretar <code>sigue</code> dentro del alcance actual y <code>hazlo</code> sólo cuando la acción concreta sea inequívoca;</li>
+<li>resolver microdecisiones A/B sin molestarte;</li>
+<li>volver a ti en decisiones C;</li>
+<li>usar el escritor canónico del proyecto;</li>
+<li>persistir transiciones materiales fuera del chat;</li>
+<li>preservar cambios locales ajenos al alcance;</li>
+<li>comprobar evidencia/obligaciones antes de declarar cierre;</li>
+<li>regenerar las proyecciones cuando cambie el estado relevante.</li>
+</ul>
+</section>
+<section id="proyectos-con-harness-propio"><h2>Proyectos con harness propio</h2>
+<p>Al adoptar un proyecto, Workstate registra identidad y <strong>qué sistema posee su estado</strong>. El adaptador sólo lee ese sistema:</p>
+<ul>
+<li><strong>NVH Scout:</strong> Workstate nativo en <code>.workstate/events.jsonl</code>.</li>
+<li><strong>Finanzas:</strong> <code>docs/work/log.jsonl</code> + <code>tools/worklog.py</code> siguen siendo su autoridad; no se crea otro worklog.</li>
+<li><strong>Trackday Analyst:</strong> sus task records, <code>NEXT_TASK.md</code>, trackers y Git siguen siendo la autoridad; no se reescriben en JSONL global.</li>
+</ul>
+<p>Esto permite cambiar de chat o herramienta sin obligar a rediseñar proyectos maduros.</p>
+</section>
+<section id="donde-mirar"><h2>Dónde mirar</h2>
+<ul>
+<li><strong>Dashboard:</strong> situación de portfolio, foco, atención, proyectos, bloqueos e inputs.</li>
+<li><strong><code>HARNESS_GUIDE.md</code>:</strong> esta explicación para ti.</li>
+<li><strong><code>OPERATING_POLICY.md</code>:</strong> reglas comunes vinculantes de operación.</li>
+<li><strong><code>BOOTSTRAP.md</code>:</strong> qué debe cargar/hacer un agente al empezar.</li>
+<li><strong><code>AGENTS.md</code> de cada repo:</strong> reglas específicas del proyecto y su dominio.</li>
+<li><strong>R001 <code>FINAL_SPECIFICATION.md</code>:</strong> diseño completo y trazabilidad del operating model.</li>
+</ul>
+</section>
+<section id="que-significa-adoptado"><h2>Qué significa “adoptado”</h2>
+<p>Un proyecto adoptado tiene:</p>
+<ul>
+<li><code>.workstate/project.json</code> con identidad portable estable;</li>
+<li>una entrada en el registry global;</li>
+<li>binding de máquina separado para localizar el checkout;</li>
+<li>un <code>status_source</code> explícito;</li>
+<li>un adaptador read-only capaz de proyectar estado sin duplicarlo;</li>
+<li><code>workstate harness-audit</code> en PASS.</li>
+</ul>
+</section>
+<section id="como-saber-si-funciona-de-verdad"><h2>Cómo saber si funciona de verdad</h2>
+<p>El harness está funcionando cuando:</p>
+<ul>
+<li>cambias de chat/herramienta y se recupera el alcance/estado correcto;</li>
+<li>una decisión material vuelve a ti y una microdecisión no;</li>
+<li>una idea/input no se convierte sola en compromiso;</li>
+<li>un cierre requiere evidencia real;</li>
+<li>Finanzas y Trackday conservan sus propios sistemas sin dobles registros;</li>
+<li>el dashboard te permite ver el portfolio sin mantener una tabla paralela;</li>
+<li>un nuevo agente puede arrancar desde estado persistido en vez del transcript anterior.</li>
+</ul>
+<p>El dashboard puede evolucionar mucho visualmente sin cambiar estas reglas. Debe seguir siendo una proyección read-only salvo que en el futuro se apruebe expresamente una capa segura de escritura.</p>
+</section><footer>Workstate · guía del propietario · derivada del operating model aprobado en R001/Astra.</footer></main><script>
+(() => {
+  const expectedHash = '59478136ba3a65c6485e7b0294a7cee6d9d12a80a92e66b838fec3490c62f217';
+  const gate = document.getElementById('ws-password-gate');
+  const form = document.getElementById('ws-password-form');
+  const input = document.getElementById('ws-password');
+  const error = document.getElementById('ws-password-error');
+  const unlock = () => {
+    document.body.classList.remove('ws-locked');
+    gate?.remove();
+    try { sessionStorage.setItem('workstate-dashboard-unlocked', '1'); } catch {}
+  };
+  try { if (sessionStorage.getItem('workstate-dashboard-unlocked') === '1') unlock(); } catch {}
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const bytes = new TextEncoder().encode(input?.value || '');
+    const digest = await crypto.subtle.digest('SHA-256', bytes);
+    const hash = Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('');
+    if (hash === expectedHash) unlock();
+    else {
+      error.textContent = 'ContraseÃ±a incorrecta.';
+      input?.select();
+    }
+  });
+})();
+</script></body></html>

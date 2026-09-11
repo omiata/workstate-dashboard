@@ -6,22 +6,27 @@
 <title>Workstate</title>
 <style>
 :root { color-scheme: light dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; }
-body { margin: 0; background: Canvas; color: CanvasText; }
-main { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
-header { margin-bottom: 28px; }
-h1 { margin: 0 0 6px; font-size: 2rem; } h2 { margin-top: 34px; }
-.subtitle,.muted,.foot { opacity: .68; }
-.portfolio { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; }
-.metric,.project-card,.input-card { border:1px solid color-mix(in srgb, CanvasText 18%, transparent); border-radius:14px; padding:16px; background:color-mix(in srgb, Canvas 94%, CanvasText 6%); }
-.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:14px; }
-.input-status { font-size:.72rem; font-weight:700; padding:4px 7px; border-radius:999px; border:1px solid currentColor; }
-.input-status.pending { font-weight:800; } .input-card a { color:inherit; text-decoration-thickness:1px; text-underline-offset:3px; }
-.card-head { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.card-head h3 { margin:0; } .state { font-size:.78rem; font-weight:700; padding:5px 8px; border-radius:999px; border:1px solid currentColor; }
-dl { display:grid; grid-template-columns:110px 1fr; gap:8px 12px; margin:14px 0 0; } dt { opacity:.64; } dd { margin:0; }
-.unavailable { opacity:.72; } code { font-size:.88em; } .empty { opacity:.65; } .foot { margin-top:36px; font-size:.86rem; }
+body { margin: 0; background: radial-gradient(circle at 12% 0%, color-mix(in srgb,#72a5ff 16%,Canvas),Canvas 42%); color: CanvasText; }
+main { max-width: 1180px; margin: 0 auto; padding: 42px 20px 72px; }
+header { margin-bottom: 30px; display:flex; justify-content:space-between; gap:18px; align-items:end; }
+h1 { margin: 0 0 6px; font-size: clamp(2.2rem,5vw,3.7rem); letter-spacing:-.055em; } h2 { margin-top: 42px; margin-bottom:14px; font-size:1.15rem; letter-spacing:-.02em; }
+.subtitle,.muted,.foot { opacity: .66; }
+.portfolio { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; }
+.metric,.project-card,.input-card { border:1px solid color-mix(in srgb, CanvasText 13%, transparent); border-radius:20px; padding:18px; background:color-mix(in srgb, Canvas 94%, CanvasText 6%); box-shadow:0 14px 38px color-mix(in srgb, CanvasText 7%, transparent); }
+.metric strong { display:block; font-size:.75rem; text-transform:uppercase; letter-spacing:.08em; opacity:.58; } .metric p { margin:.5rem 0 0; font-size:1.02rem; font-weight:650; }
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px; }
+.input-status { font-size:.68rem; font-weight:800; letter-spacing:.06em; padding:4px 7px; border-radius:999px; border:1px solid currentColor; }
+.input-status.pending { font-weight:850; } .input-card a { color:inherit; text-decoration-thickness:1px; text-underline-offset:3px; }
+.card-head { display:flex; align-items:flex-start; justify-content:space-between; gap:14px; }
+.card-head h3 { margin:0 0 7px; font-size:1.18rem; } .state { flex:none; font-size:.74rem; font-weight:800; padding:6px 9px; border-radius:999px; border:1px solid currentColor; }
+.source { display:inline-flex; font-size:.72rem; font-weight:700; padding:4px 8px; border-radius:999px; background:color-mix(in srgb,CanvasText 9%,transparent); opacity:.76; }
+.project-next { margin-top:20px; padding:14px 15px; border-radius:14px; background:color-mix(in srgb,CanvasText 7%,transparent); } .project-next span,.project-result span { display:block; font-size:.69rem; text-transform:uppercase; letter-spacing:.08em; opacity:.56; margin-bottom:5px; } .project-next strong { font-size:1rem; line-height:1.35; }
+.project-result { margin:14px 2px 0; line-height:1.45; } .project-details { border-top:1px solid color-mix(in srgb,CanvasText 10%,transparent); padding-top:10px; } .needs-attention { border-color:color-mix(in srgb,CanvasText 28%,transparent); }
+dl { display:grid; grid-template-columns:130px 1fr; gap:8px 12px; margin:14px 0 0; } dt { opacity:.58; } dd { margin:0; }
+.unavailable { opacity:.72; } .empty { opacity:.65; padding:14px 16px; border:1px dashed color-mix(in srgb,CanvasText 16%,transparent); border-radius:14px; } .foot { margin-top:40px; font-size:.82rem; }
+details { margin-top:14px; opacity:.8; } summary { cursor:pointer; } @media(max-width:620px) { main { padding-top:26px; } header { display:block; } .cards { grid-template-columns:1fr; } dl { grid-template-columns:1fr; gap:3px; } dt { margin-top:8px; } .state { max-width:48%; text-align:right; } }
 .public-warning { display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; margin:0 0 18px; padding:12px 14px; border:1px solid currentColor; border-radius:12px; }
-.public-warning strong { letter-spacing:.08em; } .public-warning span { opacity:.78; }
+.public-warning strong { letter-spacing:.08em; } .public-warning span { opacity:.78; } .guide-link { display:inline-flex; margin-top:10px; padding:7px 10px; border:1px solid color-mix(in srgb,CanvasText 16%,transparent); border-radius:999px; color:inherit; text-decoration:none; font-size:.8rem; font-weight:700; }
 </style>
 <style>
 body.ws-locked > main { display:none !important; }
@@ -44,14 +49,15 @@ body.ws-locked > main { display:none !important; }
   </form>
 </div><main>
 <div class="public-warning"><strong>PUBLIC DASHBOARD</strong><span>This complete read-only Workstate view is intentionally published on GitHub Pages.</span></div>
-<header><h1>Workstate</h1><div class="subtitle">Global read-only projection of canonical project state</div></header>
+<header><div><h1>Portfolio</h1><div class="subtitle">Centro de control de Workstate · estado canónico, sin editar nada desde aquí</div><a class="guide-link" href="guide.html">Abrir guía del harness</a></div><div class="muted">Actualizado 2026-09-11T17:03:41.570931+00:00</div></header>
 <section class="portfolio">
-  <div class="metric"><strong>Main focus</strong><p>No portfolio focus set</p></div>
-  <div class="metric"><strong>Milestone</strong><p>No portfolio milestone set</p></div>
-  <div class="metric"><strong>Portfolio</strong><p>1 registered · 0 need attention · 2 pending inputs</p></div>
+  <div class="metric"><strong>Foco</strong><p>Sin foco global fijado</p></div>
+  <div class="metric"><strong>Hito</strong><p>Sin hito global fijado</p></div>
+  <div class="metric"><strong>Proyectos</strong><p>3 registrados · 1 con trabajo</p></div>
+  <div class="metric"><strong>Tu atención</strong><p>0 proyectos · 2 inputs pendientes</p></div>
 </section>
-<h2>Human attention</h2><section class="cards"><p class="empty">No human attention required.</p></section>
-<h2>Inputs</h2><section class="cards">
+<h2>Necesita tu atención</h2><section class="cards"><p class="empty">Todo despejado · no hay ninguna decisión o revisión humana bloqueando trabajo.</p></section>
+<h2>Inputs pendientes</h2><section class="cards">
     <article class="input-card">
       <div class="card-head"><h3><a href="https://github.com/omiata/OSPvector/blob/main/input/Pendiente_auditoria_extrapolacion_selector.md" target="_blank" rel="noopener noreferrer">Pendiente — decisiones para cerrar auditoría de extrapolación y selector</a></h3><span class="input-status pending">PENDING</span></div>
       <p class="muted"><a href="https://github.com/omiata/OSPvector/blob/main/input/Input.md" target="_blank" rel="noopener noreferrer">OSPVector input</a></p>
@@ -59,7 +65,8 @@ body.ws-locked > main { display:none !important; }
     <article class="input-card">
       <div class="card-head"><h3><a href="https://github.com/omiata/OSPvector/blob/main/input/Input.md" target="_blank" rel="noopener noreferrer">Pendiente — instalar las reglas globales de ingeniería para Codex/Codexless.</a></h3><span class="input-status pending">PENDING</span></div>
       <p class="muted"><a href="https://github.com/omiata/OSPvector/blob/main/input/Input.md" target="_blank" rel="noopener noreferrer">OSPVector input</a></p>
-    </article>
+    </article></section>
+<details><summary>Material de referencia</summary><section class="cards">
     <article class="input-card">
       <div class="card-head"><h3><a href="https://github.com/omiata/OSPvector/blob/main/input/Conversation_2026-09-01_FormulaNam.md" target="_blank" rel="noopener noreferrer">Conversación 2026-09-01 — FormulaNam y estrategia de apps de nicho</a></h3><span class="input-status reference">REFERENCE</span></div>
       <p class="muted"><a href="https://github.com/omiata/OSPvector/blob/main/input/Input.md" target="_blank" rel="noopener noreferrer">OSPVector input</a></p>
@@ -67,20 +74,60 @@ body.ws-locked > main { display:none !important; }
     <article class="input-card">
       <div class="card-head"><h3><a href="https://github.com/omiata/OSPvector/blob/main/input/Recursos_revision_validacion_ideas.md" target="_blank" rel="noopener noreferrer">Recursos cercanos para revisión y validación de ideas</a></h3><span class="input-status reference">REFERENCE</span></div>
       <p class="muted"><a href="https://github.com/omiata/OSPvector/blob/main/input/Input.md" target="_blank" rel="noopener noreferrer">OSPVector input</a></p>
-    </article></section>
-<h2>All projects</h2><section class="cards">
+    </article></section></details>
+<h2>Proyectos</h2><section class="cards">
     <article class="project-card available">
-      <div class="card-head"><h3>NVH Scout</h3><span class="state">NO_ACTIVE_WORK</span></div>
-      <p class="muted"><code>nvh-scout</code> · rev 22</p>
-      <dl>
-        <dt>Latest result</dt><dd>—</dd>
-        <dt>Next action</dt><dd>None</dd>
-        <dt>Blockers</dt><dd>None</dd>
-        <dt>Review debt</dt><dd>0</dd>
-        <dt>Freshness</dt><dd>2026-09-11T16:15:29.784097+02:00</dd>
-      </dl>
+      <div class="card-head">
+        <div><h3>Finanzas</h3><span class="source">Finanzas · worklog</span></div>
+        <span class="state">Planificado</span>
+      </div>
+      <div class="project-next"><span>Siguiente</span><strong>Derivar liquidez real y completar fondos reversibles</strong></div>
+      <p class="project-result"><span>Último resultado</span>[Codexless/GPT] Patrimonio afinado con evolución legible, cuentas silenciosas salvo datos rancios y cartera fijada a la fecha del último extracto.</p>
+      <details class="project-details">
+        <summary>Detalles del estado</summary>
+        <dl>
+          <dt>Bloqueos</dt><dd>Ninguno</dd>
+          <dt>Deuda de revisión</dt><dd>0</dd>
+          <dt>Actualizado</dt><dd>2026-09-08T01:31:43.818271+02:00</dd>
+          <dt>Fuente</dt><dd><code>finanzas</code> · rev 323</dd>
+        </dl>
+      </details>
+    </article>
+    <article class="project-card available">
+      <div class="card-head">
+        <div><h3>NVH Scout</h3><span class="source">Workstate nativo</span></div>
+        <span class="state">Sin trabajo activo</span>
+      </div>
+      <div class="project-next"><span>Siguiente</span><strong>Nada pendiente</strong></div>
+      <p class="project-result"><span>Último resultado</span>Sin resultado reciente</p>
+      <details class="project-details">
+        <summary>Detalles del estado</summary>
+        <dl>
+          <dt>Bloqueos</dt><dd>Ninguno</dd>
+          <dt>Deuda de revisión</dt><dd>0</dd>
+          <dt>Actualizado</dt><dd>2026-09-11T16:15:29.784097+02:00</dd>
+          <dt>Fuente</dt><dd><code>nvh-scout</code> · rev 22</dd>
+        </dl>
+      </details>
+    </article>
+    <article class="project-card available">
+      <div class="card-head">
+        <div><h3>Trackday Analyst</h3><span class="source">Trackday · tasks</span></div>
+        <span class="state">Sin trabajo activo</span>
+      </div>
+      <div class="project-next"><span>Siguiente</span><strong>Nada pendiente</strong></div>
+      <p class="project-result"><span>Último resultado</span>Sin resultado reciente</p>
+      <details class="project-details">
+        <summary>Detalles del estado</summary>
+        <dl>
+          <dt>Bloqueos</dt><dd>Ninguno</dd>
+          <dt>Deuda de revisión</dt><dd>0</dd>
+          <dt>Actualizado</dt><dd>2026-09-03T21:43:16.276375+00:00</dd>
+          <dt>Fuente</dt><dd><code>trackday-analyst</code> · rev 0</dd>
+        </dl>
+      </details>
     </article></section>
-<p class="foot">Generated by Workstate from the global registry, machine bindings, and project-local <code>.workstate</code> event streams. This dashboard is disposable and is not a writable source of truth.</p>
+<p class="foot">Generado por Workstate desde el registry global y el harness canónico de cada proyecto. Esta vista es descartable y de solo lectura: el estado se modifica únicamente en su fuente de verdad.</p>
 </main><script>
 (() => {
   const expectedHash = '59478136ba3a65c6485e7b0294a7cee6d9d12a80a92e66b838fec3490c62f217';
